@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Antelope.Notifier
+namespace Antelope.Notifier.Notifiers
 {
-    public class Class1
+    public interface INotifier
     {
+        string Name();
+        void Notify();
     }
 }
