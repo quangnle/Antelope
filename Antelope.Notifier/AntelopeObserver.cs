@@ -20,7 +20,7 @@ namespace Antelope.Notifier
         {
             foreach (var sub in _subcribers)
             {
-                sub.Notify();
+                //sub.Notify();
             }
         }
     }

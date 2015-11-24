@@ -40,11 +40,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntelopeObserver.cs" />
+    <Compile Include="NotifiedData\SkypeNotifiedData.cs" />
     <Compile Include="Notifiers\GmailNotifier.cs" />
     <Compile Include="Notifiers\INotifier.cs" />
     <Compile Include="Notifiers\EmailNotifier.cs" />
     <Compile Include="Notifiers\SkypeNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NotifiedData\EmailNotifiedData.cs" />
+    <Compile Include="NotifiedData\BaseNotifiedData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

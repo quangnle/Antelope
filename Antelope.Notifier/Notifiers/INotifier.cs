@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Antelope.Notifier.NotifiedData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace Antelope.Notifier.Notifiers
     public interface INotifier
     {
         string Name();
-        void Notify();
+        void Notify(BaseNotifiedData data);
     }
 }

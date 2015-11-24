@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Antelope.Notifier.NotifiedData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,11 +11,6 @@ namespace Antelope.Notifier.Notifiers
 {
     public abstract class EmailNotifier : INotifier
     {
-        private readonly string AntelopeEmail = "shenlongbk@gmail.com";
-        private readonly string AntelopeName = "Antelope";
-        private readonly string SubjectTemplate = "subject";
-        private readonly string ContentTemplate = "content";
-
         private string _emailAddr;
         private string _emailPassword;
         private string _emailDisplayName;
@@ -39,10 +35,15 @@ namespace Antelope.Notifier.Notifiers
             return "Email Notifier";
         }
 
-        public void Notify()
+        public void Notify(BaseNotifiedData data)
         {
-            var fromAddress = new MailAddress(AntelopeEmail, AntelopeName);
-            var toAddress = new MailAddress(_emailAddr, _emailDisplayName);
+            var emailData = data as EmailNotifiedData;
+
+            if(emailData == null)
+                throw new ArgumentNullException();
+
+            var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
+            var toAddress = new MailAddress(emailData.Email, emailData.DisplayedName);
 
             var smtp = new SmtpClient
             {
@@ -56,8 +57,8 @@ namespace Antelope.Notifier.Notifiers
 
             using (var message = new MailMessage(fromAddress, toAddress)
             {
-                Subject = SubjectTemplate,
-                Body = ContentTemplate
+                Subject = emailData.Title,
+                Body = emailData.Content
             })
             {
                 smtp.Send(message);

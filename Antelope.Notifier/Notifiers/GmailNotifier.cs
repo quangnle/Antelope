@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Notifiers
 {
-    class GmailNotifier: EmailNotifier
+    public class GmailNotifier: EmailNotifier
     {
         public GmailNotifier(string emailAddr, string password, string emailDisplayName)
-            :base(emailAddr, password, emailAddr)
+            : base(emailAddr, password, emailDisplayName)
         {
 
         }
