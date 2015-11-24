@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Remoter", "Antelop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Notifier", "Antelope.Notifier\Antelope.Notifier.csproj", "{899E5330-4E38-4324-9D2C-BC92910EEC28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Configurator", "Antelope.Configuator\Antelope.Configurator.csproj", "{51F7A80F-842A-47FB-9F9F-9F208DE2CD81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Configurator", "Antelope.Configurator\Antelope.Configurator.csproj", "{51F7A80F-842A-47FB-9F9F-9F208DE2CD81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
