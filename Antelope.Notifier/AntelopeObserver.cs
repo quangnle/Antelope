@@ -1,4 +1,5 @@
-﻿using Antelope.Notifier.Notifiers;
+﻿using Antelope.Notifier.NotifiedData;
+using Antelope.Notifier.Notifiers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,32 @@ namespace Antelope.Notifier
 {
     class AntelopeObserver
     {
-        private List<INotifier> _subcribers = new List<INotifier>();
+        private Dictionary<Type, SubcriberGroup> _subcribers = new Dictionary<Type, SubcriberGroup>();
 
-        public void Register(INotifier sub)
+        public void Register(Type notificationType, BaseNotifiedData data)
         {
-            _subcribers.Add(sub);
+            if (!_subcribers.ContainsKey(notificationType))
+            {
+                _subcribers[notificationType] = new SubcriberGroup()
+                {
+                    Notifier = Activator.CreateInstance(notificationType) as INotifier,
+                    Data = new List<BaseNotifiedData>()
+                };
+            }
+
+            _subcribers[notificationType].Data.Add(data);
         }
 
         public void NotifyAll()
         {
             foreach (var sub in _subcribers)
             {
-                //sub.Notify();
+                var subGroup = sub.Value;
+
+                foreach (var data in subGroup.Data)
+                {
+                    subGroup.Notifier.Notify(data);
+                }
             }
         }
     }
