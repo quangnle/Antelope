@@ -60,7 +60,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AntelopeConfiguration.cs" />
     <Compile Include="Processors\CoreProcessor.cs" />
     <Compile Include="UserControls\UCAccountStatusList.xaml.cs">
       <DependentUpon>UCAccountStatusList.xaml</DependentUpon>

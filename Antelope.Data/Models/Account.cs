@@ -9,12 +9,6 @@ namespace Antelope.Data.Models
     [Table("Account")]
     public partial class Account
     {
-        public Account()
-        {
-            TargetConfigs = new HashSet<TargetConfig>();
-            TargetConfigs1 = new HashSet<TargetConfig>();
-        }
-
         public int Id { get; set; }
 
         public int IdBank { get; set; }
@@ -32,11 +26,5 @@ namespace Antelope.Data.Models
         public double Balance { get; set; }
 
         public int Status { get; set; }
-
-        public virtual Bank Bank { get; set; }
-
-        public virtual ICollection<TargetConfig> TargetConfigs { get; set; }
-
-        public virtual ICollection<TargetConfig> TargetConfigs1 { get; set; }
     }
 }

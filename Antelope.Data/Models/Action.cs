@@ -22,7 +22,5 @@ namespace Antelope.Data.Models
         public int IdAccount { get; set; }
 
         public double Balance { get; set; }
-
-        public virtual ExceedIncident ExceedIncident { get; set; }
     }
 }

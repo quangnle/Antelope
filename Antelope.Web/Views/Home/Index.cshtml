@@ -1,0 +1,92 @@
+﻿@using Antelope.Data.ViewModels
+@model IEnumerable<AccountViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotifyThreshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AutoActionThreshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartEffectiveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndEffectiveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfRetries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitorPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BankName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotifyThreshold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutoActionThreshold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartEffectiveDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndEffectiveDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfRetries)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonitorPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BankName)
+            </td>
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,82 @@
+﻿@model Antelope.Data.Models.AccountConfig
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AccountConfig</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinRemain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinRemain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NotifyThreshold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NotifyThreshold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartEffectiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartEffectiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndEffectiveDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndEffectiveDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AutoActionThreshold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AutoActionThreshold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfRetries)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfRetries)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonitorPeriod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonitorPeriod)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

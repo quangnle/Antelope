@@ -1,0 +1,42 @@
+﻿@model Antelope.Data.Models.TargetConfig
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TargetConfig</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTarget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxLimit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

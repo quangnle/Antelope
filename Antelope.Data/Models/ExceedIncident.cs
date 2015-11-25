@@ -9,17 +9,10 @@ namespace Antelope.Data.Models
     [Table("ExceedIncident")]
     public partial class ExceedIncident
     {
-        public ExceedIncident()
-        {
-            Actions = new HashSet<Action>();
-        }
-
         public int Id { get; set; }
 
         public DateTime DetectedAt { get; set; }
 
         public int IdAccount { get; set; }
-
-        public virtual ICollection<Action> Actions { get; set; }
     }
 }
