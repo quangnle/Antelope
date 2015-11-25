@@ -43,5 +43,10 @@ namespace Antelope
             var processor = new CoreProcessor(context);
             Task.Run(() => processor.Start(config));
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -23,7 +23,6 @@ namespace Antelope.Processors
         private bool _isRunning = false;
 
         private AccountRepository _accountRepository;
-        private AntelopeObserver _notifierCenter;
 
         public CoreProcessor(MainModel context)
         {
@@ -35,31 +34,32 @@ namespace Antelope.Processors
         {
             try
             {
-                _notifierCenter = new AntelopeObserver();
-                _notifierCenter.AddNotifier((int)ContactType.Email, GmailNotifier.CreateNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
-                _notifierCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
-
-                var contacts = _accountRepository.GetAllContacts();
-
-                foreach (var contact in contacts)
-                {
-                    if (contact.ContactType == (int)ContactType.Email)
-                        _notifierCenter.Register((int)ContactType.Email, new EmailSubcriber() { Email = contact.Name, DisplayName = contact.Name });
-                    else if (contact.ContactType == (int)ContactType.Skype)
-                        _notifierCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
-                }
-
                 _isRunning = true;
 
                 while (_isRunning)
                 {
+                    // realtime database loading
+                    var notificationCenter = new AntelopeObserver();
+                    notificationCenter.AddNotifier((int)ContactType.Email, GmailNotifier.CreateNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
+                    notificationCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
+
+                    var contacts = _accountRepository.GetAllContacts();
+
+                    foreach (var contact in contacts)
+                    {
+                        if (contact.ContactType == (int)ContactType.Email)
+                            notificationCenter.Register((int)ContactType.Email, new EmailSubcriber() { Email = contact.Name, DisplayName = contact.Name });
+                        else if (contact.ContactType == (int)ContactType.Skype)
+                            notificationCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
+                    }
+
                     var accounts = _accountRepository.GetAll();
 
                     foreach (var account in accounts)
                     {
                         if (account.NotifyThreshold <= account.Balance && account.Balance <= account.AutoActionThreshold)
                         {
-                            SendNotification(account);
+                            SendNotification(notificationCenter, account);
                         }
                     }
 
@@ -77,19 +77,19 @@ namespace Antelope.Processors
             _isRunning = false;
         }
 
-        private void SendNotification(AccountViewModel account)
+        private void SendNotification(AntelopeObserver notificationCenter, AccountViewModel account)
         {
             var content = string.Format("Account {3}/{0}/{1} with balance '{2}' exceeded the limit", 
                             account.Number, account.Name, account.Balance, account.BankName);
 
-            _notifierCenter.Notify((int)ContactType.Email,
+            notificationCenter.Notify((int)ContactType.Email,
                 new EmailNotifierData()
                 {
                     Title = string.Format("Antelope Notification - {0}", DateTime.Now.ToString()),
                     Content = content
                 });
 
-            _notifierCenter.Notify((int)ContactType.Skype, new SkypeNotifierData() { Message = content });
+            notificationCenter.Notify((int)ContactType.Skype, new SkypeNotifierData() { Message = content });
         }
     }
 }

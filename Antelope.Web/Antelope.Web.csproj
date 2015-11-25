@@ -113,6 +113,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountConfigsController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\GeneralConfigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TargetConfigsController.cs" />
@@ -151,6 +152,11 @@
     <Content Include="Views\TargetConfigs\Details.cshtml" />
     <Content Include="Views\TargetConfigs\Edit.cshtml" />
     <Content Include="Views\TargetConfigs\Index.cshtml" />
+    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\Delete.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
