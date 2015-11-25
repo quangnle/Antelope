@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Antelope.Configuator
+namespace Antelope.Configurator
 {
     public class BundleConfig
     {

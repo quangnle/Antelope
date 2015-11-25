@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace Antelope.Configuator
+namespace Antelope.Configurator
 {
     public static class WebApiConfig
     {
