@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Remoter", "Antelop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Notifier", "Antelope.Notifier\Antelope.Notifier.csproj", "{899E5330-4E38-4324-9D2C-BC92910EEC28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Tests", "Antelope.Tests\Antelope.Tests.csproj", "{F729F170-D37A-4AED-9D9D-9CCD39F4B3F9}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antelope.Configurator", "Antelope.Configurator\Antelope.Configurator.csproj", "{51F7A80F-842A-47FB-9F9F-9F208DE2CD81}"
 EndProject
 Global
@@ -35,6 +37,10 @@ Global
 		{899E5330-4E38-4324-9D2C-BC92910EEC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{899E5330-4E38-4324-9D2C-BC92910EEC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{899E5330-4E38-4324-9D2C-BC92910EEC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F729F170-D37A-4AED-9D9D-9CCD39F4B3F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F729F170-D37A-4AED-9D9D-9CCD39F4B3F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F729F170-D37A-4AED-9D9D-9CCD39F4B3F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F729F170-D37A-4AED-9D9D-9CCD39F4B3F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51F7A80F-842A-47FB-9F9F-9F208DE2CD81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51F7A80F-842A-47FB-9F9F-9F208DE2CD81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F7A80F-842A-47FB-9F9F-9F208DE2CD81}.Release|Any CPU.ActiveCfg = Release|Any CPU

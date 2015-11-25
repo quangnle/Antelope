@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Antelope.Notifier
+namespace Antelope.Notifier.NotifiedData
 {
-    public class Class1
+    public class BaseNotifiedData
     {
     }
 }
