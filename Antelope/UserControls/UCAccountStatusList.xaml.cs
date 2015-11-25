@@ -1,7 +1,4 @@
-﻿using Antelope.Data;
-using Antelope.Data.Models;
-using Antelope.Processors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,24 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Antelope
+namespace Antelope.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UCAccountStatusList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCAccountStatusList : UserControl
     {
-        public MainWindow()
+        public UCAccountStatusList()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var context = new MainModel();
-
-            var processor = new CoreProcessor(context);
-            Task.Run(() => processor.Start());
         }
     }
 }

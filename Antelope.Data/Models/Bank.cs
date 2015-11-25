@@ -1,4 +1,4 @@
-namespace Antelope.Data
+namespace Antelope.Data.Models
 {
     using System;
     using System.Collections.Generic;

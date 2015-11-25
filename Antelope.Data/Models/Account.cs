@@ -1,4 +1,4 @@
-namespace Antelope.Data
+namespace Antelope.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,8 @@ namespace Antelope.Data
     public partial class Account
     {
         public int Id { get; set; }
+
+        public int IdRole { get; set; }
 
         public int IdBank { get; set; }
 

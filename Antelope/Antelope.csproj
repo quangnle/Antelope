@@ -33,9 +33,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>antelope.ico</ApplicationIcon>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -63,6 +60,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Processors\CoreProcessor.cs" />
+    <Compile Include="UserControls\UCAccountStatusList.xaml.cs">
+      <DependentUpon>UCAccountStatusList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCExceedingList.xaml.cs">
+      <DependentUpon>UCExceedingList.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,9 +79,16 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\UCAccountStatusList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCExceedingList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Processors\CoreProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,15 +117,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\antelope.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="antelope.ico" />
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Antelope.Data\Antelope.Data.csproj">
       <Project>{f502767a-5155-447f-a490-b8241b9370c6}</Project>
       <Name>Antelope.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Antelope.Notifier\Antelope.Notifier.csproj">
+      <Project>{899e5330-4e38-4324-9d2c-bc92910eec28}</Project>
+      <Name>Antelope.Notifier</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

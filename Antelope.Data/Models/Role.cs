@@ -6,15 +6,13 @@ namespace Antelope.Data.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("TargetConfig")]
-    public partial class TargetConfig
+    [Table("Role")]
+    public partial class Role
     {
         public int Id { get; set; }
 
-        public int IdAccount { get; set; }
-
-        public int IdTarget { get; set; }
-
-        public double MaxLimit { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
     }
 }

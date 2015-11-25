@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Antelope.Data.Views
+namespace Antelope.Data.ViewModels
 {
-    class AccountView
+    public class AccountViewModel
     {
         public int Id { get; set; }
         public int AccountType { get; set; }
@@ -20,5 +20,6 @@ namespace Antelope.Data.Views
         public DateTime EndEffectiveDate { get; set; }
         public int NumberOfRetries { get; set; }
         public int MonitorPeriod { get; set; }
+        public string BankName { get; set; }
     }
 }

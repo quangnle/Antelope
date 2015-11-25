@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier
 {
-    class AntelopeObserver
+    public class AntelopeObserver
     {
         private Dictionary<int, INotifier> _notifiers = new Dictionary<int, INotifier>();
 
