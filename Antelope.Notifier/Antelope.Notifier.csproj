@@ -41,15 +41,18 @@
   <ItemGroup>
     <Compile Include="AntelopeObserver.cs" />
     <Compile Include="Exceptions\AntelopeException.cs" />
+    <Compile Include="Models\EmailSubcriber.cs" />
+    <Compile Include="Models\SkypeSubcriber.cs" />
     <Compile Include="Models\SkypeUser.cs" />
-    <Compile Include="NotifiedData\SkypeNotifiedData.cs" />
+    <Compile Include="Models\SkypeNotifierData.cs" />
+    <Compile Include="Models\BaseSubcriber.cs" />
     <Compile Include="Notifiers\GmailNotifier.cs" />
     <Compile Include="Notifiers\INotifier.cs" />
     <Compile Include="Notifiers\EmailNotifier.cs" />
     <Compile Include="Notifiers\SkypeNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NotifiedData\EmailNotifiedData.cs" />
-    <Compile Include="NotifiedData\BaseNotifiedData.cs" />
+    <Compile Include="Models\EmailNotifierData.cs" />
+    <Compile Include="Models\BaseNotifierData.cs" />
     <Compile Include="SubcriberGroup.cs" />
   </ItemGroup>
   <ItemGroup />

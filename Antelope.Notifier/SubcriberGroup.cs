@@ -1,4 +1,4 @@
-﻿using Antelope.Notifier.NotifiedData;
+﻿using Antelope.Notifier.Models;
 using Antelope.Notifier.Notifiers;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,6 @@ namespace Antelope.Notifier
     public class SubcriberGroup
     {
         public INotifier Notifier { get; set; }
-        public List<BaseNotifiedData> Data { get; set; }
+        public List<BaseNotifierData> Data { get; set; }
     }
 }

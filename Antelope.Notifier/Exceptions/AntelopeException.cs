@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Exceptions
 {
-    public class AntelopeInvalidNotifiedData : Exception { }
+    public class AntelopeInvalidParameter : Exception { }
     public class AntelopeUnknownTarget : Exception { }
     public class AntelopeUninitializedNotifier : Exception { }
 }

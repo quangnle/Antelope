@@ -1,6 +1,5 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
-using Antelope.Notifier.NotifiedData;
 using SKYPE4COMLib;
 using System;
 using System.Collections.Generic;
@@ -42,17 +41,18 @@ namespace Antelope.Notifier.Notifiers
             return "SkypeNotifier";
         }
 
-        public void Notify(BaseNotifiedData data)
+        public void Notify(BaseSubcriber subcriber, BaseNotifierData data)
         {
-            var skypeData = data as SkypeNotifiedData;
+            var skypeData = data as SkypeNotifierData;
+            var skypeSubcriber = subcriber as SkypeSubcriber;
 
-            if (skypeData == null)
-                throw new AntelopeInvalidNotifiedData();
+            if (skypeData == null || skypeSubcriber == null)
+                throw new AntelopeInvalidParameter();
 
-            if (_friends.Find(fr => fr.Handle == skypeData.ToAccountHandle) == null)
+            if (_friends.Find(fr => fr.Handle == skypeSubcriber.Handle) == null)
                 throw new AntelopeUnknownTarget();
 
-            _skypeHandler.SendMessage(skypeData.ToAccountHandle, skypeData.Message);
+            _skypeHandler.SendMessage(skypeSubcriber.Handle, skypeData.Message);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Antelope.Notifier.Exceptions;
-using Antelope.Notifier.NotifiedData;
+using Antelope.Notifier.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +28,7 @@ namespace Antelope.Notifier.Notifiers
             _emailAddr = emailAddr;
             _emailPassword = password;
             _emailDisplayName = emailDisplayName;
-
-            EnableSsl = false;
+            EnableSsl = true;
 
             _smtp = new SmtpClient
             {
@@ -47,15 +46,16 @@ namespace Antelope.Notifier.Notifiers
             return string.Format("EmailNotifier {0} <{1}>", _emailDisplayName, _emailAddr);
         }
 
-        public void Notify(BaseNotifiedData data)
+        public void Notify(BaseSubcriber subcriber, BaseNotifierData data)
         {
-            var emailData = data as EmailNotifiedData;
+            var emailSubcriber = subcriber as EmailSubcriber;
+            var emailData = data as EmailNotifierData;
 
-            if(emailData == null)
-                throw new AntelopeInvalidNotifiedData();
+            if(emailData == null || emailSubcriber == null)
+                throw new AntelopeInvalidParameter();
 
             var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
-            var toAddress = new MailAddress(emailData.Email, emailData.DisplayName);
+            var toAddress = new MailAddress(emailSubcriber.Email, emailSubcriber.DisplayName);
 
             using (var message = new MailMessage(fromAddress, toAddress)
             {
