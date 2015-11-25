@@ -14,6 +14,7 @@ namespace Antelope.Notifier.Notifiers
         private string _emailAddr;
         private string _emailPassword;
         private string _emailDisplayName;
+        private SmtpClient _smtp;
 
         public bool EnableSsl { get; set; }
 
@@ -28,6 +29,16 @@ namespace Antelope.Notifier.Notifiers
             _emailDisplayName = emailDisplayName;
 
             EnableSsl = false;
+
+            _smtp = new SmtpClient
+            {
+                Host = SmtpHost(),
+                Port = EnableSsl ? SmtpSslPort() : SmtpPort(),
+                EnableSsl = EnableSsl,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(_emailAddr, _emailPassword)
+            };
         }
 
         public string Name()
@@ -45,23 +56,13 @@ namespace Antelope.Notifier.Notifiers
             var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
             var toAddress = new MailAddress(emailData.Email, emailData.DisplayedName);
 
-            var smtp = new SmtpClient
-            {
-                Host = SmtpHost(),
-                Port = EnableSsl?SmtpSslPort():SmtpPort(),
-                EnableSsl = EnableSsl,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, _emailPassword)
-            };
-
             using (var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = emailData.Title,
                 Body = emailData.Content
             })
             {
-                smtp.Send(message);
+                _smtp.Send(message);
             }
         }
     }
