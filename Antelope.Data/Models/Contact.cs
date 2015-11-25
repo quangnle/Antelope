@@ -1,4 +1,4 @@
-﻿namespace Antelope.Data
+namespace Antelope.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,9 @@
         [Required]
         [StringLength(250)]
         public string Name { get; set; }
+
         public int ContactType { get; set; }
+
         public int ContactLevel { get; set; }
     }
 }

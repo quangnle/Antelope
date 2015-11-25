@@ -1,4 +1,4 @@
-namespace Antelope.Data
+namespace Antelope.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,5 +18,8 @@ namespace Antelope.Data
         [Required]
         [StringLength(20)]
         public string Password { get; set; }
+
+        [Required]
+        public int IdRole { get; set; }
     }
 }

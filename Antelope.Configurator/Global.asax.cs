@@ -23,7 +23,7 @@ namespace Antelope.Configurator
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ControllerBuilder.Current.DefaultNamespaces.Add("Antelope.Data.Controllers");
+            //ControllerBuilder.Current.DefaultNamespaces.Add("Antelope.Data.Controllers");
         }
     }
 }

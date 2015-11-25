@@ -14,6 +14,15 @@ namespace Antelope.Notifier.Notifiers
         private Skype _skypeHandler;
         private List<SkypeUser> _friends;
 
+        public static SkypeNotifier CreateNotifier()
+        {
+            var notifier = new SkypeNotifier();
+            if (notifier.AttachToSkype())
+                return notifier;
+            else
+                return null;
+        }
+
         public bool AttachToSkype()
         {
             _skypeHandler = new Skype();

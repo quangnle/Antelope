@@ -34,7 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Processors\CoreProcessor.cs" />
     <Compile Include="UserControls\UCAccountStatusList.xaml.cs">
       <DependentUpon>UCAccountStatusList.xaml</DependentUpon>
     </Compile>
@@ -98,6 +106,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,11 +116,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Antelope.Data\Antelope.Data.csproj">
       <Project>{f502767a-5155-447f-a490-b8241b9370c6}</Project>
       <Name>Antelope.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Antelope.Notifier\Antelope.Notifier.csproj">
+      <Project>{899e5330-4e38-4324-9d2c-bc92910eec28}</Project>
+      <Name>Antelope.Notifier</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

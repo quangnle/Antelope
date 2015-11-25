@@ -1,4 +1,4 @@
-namespace Antelope.Data
+namespace Antelope.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,6 @@ namespace Antelope.Data
     {
         public int Id { get; set; }
 
-        [Required]
         public int IdExceedIncident { get; set; }
 
         public DateTime ActionTime { get; set; }
