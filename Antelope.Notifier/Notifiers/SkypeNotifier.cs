@@ -11,7 +11,7 @@ namespace Antelope.Notifier.Notifiers
     {
         public string Name()
         {
-            return "Skype Notifier";
+            return "SkypeNotifier";
         }
 
         public void Notify(BaseNotifiedData data)

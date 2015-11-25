@@ -43,7 +43,7 @@ namespace Antelope.Notifier.Notifiers
 
         public string Name()
         {
-            return "Email Notifier";
+            return string.Format("EmailNotifier {0} <{1}>", _emailDisplayName, _emailAddr);
         }
 
         public void Notify(BaseNotifiedData data)
