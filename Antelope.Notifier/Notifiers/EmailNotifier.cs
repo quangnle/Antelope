@@ -1,0 +1,70 @@
+﻿using Antelope.Notifier.Exceptions;
+using Antelope.Notifier.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Antelope.Notifier.Notifiers
+{
+    public abstract class EmailNotifier : INotifier
+    {
+        private string _emailAddr;
+        private string _emailPassword;
+        private string _emailDisplayName;
+        private SmtpClient _smtp;
+
+        public bool EnableSsl { get; set; }
+
+        public abstract string SmtpHost();
+        public abstract int SmtpPort();
+        public abstract int SmtpSslPort();
+
+        public EmailNotifier(string emailAddr, string password, string emailDisplayName)
+        {
+            _emailAddr = emailAddr;
+            _emailPassword = password;
+            _emailDisplayName = emailDisplayName;
+            EnableSsl = true;
+
+            _smtp = new SmtpClient
+            {
+                Host = SmtpHost(),
+                Port = EnableSsl ? SmtpSslPort() : SmtpPort(),
+                EnableSsl = EnableSsl,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(_emailAddr, _emailPassword)
+            };
+        }
+
+        public string Name()
+        {
+            return string.Format("EmailNotifier {0} <{1}>", _emailDisplayName, _emailAddr);
+        }
+
+        public void Notify(BaseSubcriber subcriber, BaseNotifierData data)
+        {
+            var emailSubcriber = subcriber as EmailSubcriber;
+            var emailData = data as EmailNotifierData;
+
+            if(emailData == null || emailSubcriber == null)
+                throw new AntelopeInvalidParameter();
+
+            var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
+            var toAddress = new MailAddress(emailSubcriber.Email, emailSubcriber.DisplayName);
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = emailData.Title,
+                Body = emailData.Content
+            })
+            {
+                _smtp.Send(message);
+            }
+        }
+    }
+}

@@ -13,7 +13,7 @@ namespace Antelope.Data
         public virtual DbSet<AccountConfig> AccountConfigs { get; set; }
         public virtual DbSet<Action> Actions { get; set; }
         public virtual DbSet<Bank> Banks { get; set; }
-        public virtual DbSet<Bank> Contacts { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<ExceedIncident> ExceedIncidents { get; set; }
         public virtual DbSet<TargetConfig> TargetConfigs { get; set; }
         public virtual DbSet<User> Users { get; set; }
