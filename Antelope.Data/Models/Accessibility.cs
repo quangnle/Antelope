@@ -23,5 +23,7 @@ namespace Antelope.Data.Models
         [Required]
         [StringLength(150)]
         public string CheckingType { get; set; }
+
+        public virtual Role Role { get; set; }
     }
 }

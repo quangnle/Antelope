@@ -9,6 +9,11 @@ namespace Antelope.Data.Models
     [Table("Bank")]
     public partial class Bank
     {
+        public Bank()
+        {
+            Accounts = new HashSet<Account>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -17,5 +22,7 @@ namespace Antelope.Data.Models
 
         [Column(TypeName = "image")]
         public byte[] Logo { get; set; }
+
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

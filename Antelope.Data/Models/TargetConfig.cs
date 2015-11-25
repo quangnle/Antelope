@@ -16,5 +16,9 @@ namespace Antelope.Data.Models
         public int IdTarget { get; set; }
 
         public double MaxLimit { get; set; }
+
+        public virtual Account Account { get; set; }
+
+        public virtual Account Account1 { get; set; }
     }
 }
