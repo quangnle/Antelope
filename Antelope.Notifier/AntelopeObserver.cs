@@ -10,31 +10,36 @@ namespace Antelope.Notifier
 {
     class AntelopeObserver
     {
-        private Dictionary<Type, SubcriberGroup> _subcribers = new Dictionary<Type, SubcriberGroup>();
+        private Dictionary<int, INotifier> _notifiers = new Dictionary<int, INotifier>();
 
-        public void Register(Type notificationType, BaseNotifiedData data)
+        private Dictionary<int, List<BaseNotifiedData>> _subcribers = new Dictionary<int, List<BaseNotifiedData>>();
+
+        public void AddNotifier(int notifierId, INotifier notifier)
         {
-            if (!_subcribers.ContainsKey(notificationType))
+            _notifiers[notifierId] = notifier;
+        }
+
+        public void Register(int notifierId, BaseNotifiedData data)
+        {
+            if (!_subcribers.ContainsKey(notifierId))
             {
-                _subcribers[notificationType] = new SubcriberGroup()
-                {
-                    Notifier = Activator.CreateInstance(notificationType) as INotifier,
-                    Data = new List<BaseNotifiedData>()
-                };
+                _subcribers[notifierId] = new List<BaseNotifiedData>();
             }
 
-            _subcribers[notificationType].Data.Add(data);
+            _subcribers[notifierId].Add(data);
         }
 
         public void NotifyAll()
         {
-            foreach (var sub in _subcribers)
+            foreach (var notifierId in _subcribers.Keys)
             {
-                var subGroup = sub.Value;
+                var notifier = _notifiers[notifierId];
 
-                foreach (var data in subGroup.Data)
+                var notifiedData = _subcribers[notifierId];
+
+                foreach (var data in notifiedData)
                 {
-                    subGroup.Notifier.Notify(data);
+                    notifier.Notify(data);
                 }
             }
         }
