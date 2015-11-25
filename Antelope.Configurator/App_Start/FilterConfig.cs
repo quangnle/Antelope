@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Antelope.Configuator
+namespace Antelope.Configurator
 {
     public class FilterConfig
     {
