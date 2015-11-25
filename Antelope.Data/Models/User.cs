@@ -18,5 +18,8 @@ namespace Antelope.Data.Models
         [Required]
         [StringLength(20)]
         public string Password { get; set; }
+
+        [Required]
+        public int IdRole { get; set; }
     }
 }
