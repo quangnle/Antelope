@@ -13,7 +13,7 @@ namespace Antelope.Web.Controllers
     {
         private AccountRepository _accRepo;
         // GET: Home
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             _accRepo = new AccountRepository(new MainModel());
