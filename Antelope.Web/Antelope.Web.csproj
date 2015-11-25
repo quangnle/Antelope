@@ -111,7 +111,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountConfigsController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\GeneralConfigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TargetConfigsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,6 +131,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\AccountConfigs\Create.cshtml" />
+    <Content Include="Views\AccountConfigs\Delete.cshtml" />
+    <Content Include="Views\AccountConfigs\Details.cshtml" />
+    <Content Include="Views\AccountConfigs\Edit.cshtml" />
+    <Content Include="Views\AccountConfigs\Index.cshtml" />
+    <Content Include="Views\GeneralConfigs\Create.cshtml" />
+    <Content Include="Views\GeneralConfigs\Delete.cshtml" />
+    <Content Include="Views\GeneralConfigs\Details.cshtml" />
+    <Content Include="Views\GeneralConfigs\Edit.cshtml" />
+    <Content Include="Views\GeneralConfigs\Index.cshtml" />
+    <Content Include="Views\TargetConfigs\Create.cshtml" />
+    <Content Include="Views\TargetConfigs\Delete.cshtml" />
+    <Content Include="Views\TargetConfigs\Details.cshtml" />
+    <Content Include="Views\TargetConfigs\Edit.cshtml" />
+    <Content Include="Views\TargetConfigs\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

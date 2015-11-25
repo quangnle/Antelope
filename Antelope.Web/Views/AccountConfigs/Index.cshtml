@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Antelope.Data.Models.AccountConfig>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinRemain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotifyThreshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartEffectiveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndEffectiveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AutoActionThreshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfRetries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitorPeriod)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinRemain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NotifyThreshold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartEffectiveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndEffectiveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AutoActionThreshold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfRetries)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonitorPeriod)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
