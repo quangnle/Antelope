@@ -32,8 +32,16 @@ namespace Antelope
         {
             var context = new MainModel();
 
+            var config = new AntelopeConfiguration()
+            {
+                Email = txtEmail.Text,
+                EmailPassword = txtPassword.Password,
+                EmailDisplayName = txtDisplayName.Text,
+                MonitoringPeriod = Convert.ToInt32(txtMonitoringPeriod.Text)
+            };
+
             var processor = new CoreProcessor(context);
-            Task.Run(() => processor.Start());
+            Task.Run(() => processor.Start(config));
         }
     }
 }
