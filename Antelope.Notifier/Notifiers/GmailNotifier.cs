@@ -8,10 +8,13 @@ namespace Antelope.Notifier.Notifiers
 {
     public class GmailNotifier: EmailNotifier
     {
-        public GmailNotifier(string emailAddr, string password, string emailDisplayName)
-            : base(emailAddr, password, emailDisplayName)
+        public static GmailNotifier CreateNotifier(string emailAddr, string password, string emailDisplayName)            
         {
-
+            var notifier = new GmailNotifier();
+            if (notifier.Init(emailAddr, password, emailDisplayName))
+                return notifier;
+            else
+                return null;
         }
 
         public override string SmtpHost()

@@ -1,4 +1,5 @@
-﻿using Antelope.Notifier.Models;
+﻿using Antelope.Notifier.Exceptions;
+using Antelope.Notifier.Models;
 using Antelope.Notifier.Notifiers;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace Antelope.Notifier
 
         public void AddNotifier(int notifierId, INotifier notifier)
         {
+            if (notifier == null)
+                throw new AntelopeInvalidNotifier(null);
+
             _notifiers[notifierId] = notifier;
         }
 

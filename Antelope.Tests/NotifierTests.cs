@@ -12,7 +12,7 @@ namespace Antelope.Tests
         [TestMethod]
         public void TestGmailNotifier()
         {
-            var notifier = new GmailNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong") { EnableSsl = true };
+            var notifier = GmailNotifier.CreateNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong");
             var subcriber = new EmailSubcriber()
             {
                 Email = "peterpan.hx@gmail.com",
@@ -32,7 +32,7 @@ namespace Antelope.Tests
         [ExpectedException(typeof(AntelopeInvalidParameter))]
         public void GmailNotifierInvalidData()
         {
-            var notifier = new GmailNotifier("foo", "foo", "foo") { EnableSsl = true };
+            var notifier = GmailNotifier.CreateNotifier("foo", "foo", "foo");
             notifier.Notify(new EmailSubcriber(), new SkypeNotifierData());
         }
 

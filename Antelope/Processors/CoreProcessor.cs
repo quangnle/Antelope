@@ -4,6 +4,7 @@ using Antelope.Data.Models;
 using Antelope.Data.Repositories;
 using Antelope.Data.ViewModels;
 using Antelope.Notifier;
+using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
 using Antelope.Notifier.Notifiers;
 using System;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Antelope.Processors
 {
@@ -31,35 +33,42 @@ namespace Antelope.Processors
 
         public void Start(AntelopeConfiguration config)
         {
-            _notifierCenter = new AntelopeObserver();
-            _notifierCenter.AddNotifier((int)ContactType.Email, new GmailNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
-            _notifierCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
-
-            var contacts = _accountRepository.GetAllContacts();
-
-            foreach (var contact in contacts)
+            try
             {
-                if (contact.ContactType == (int)ContactType.Email)
-                    _notifierCenter.Register((int)ContactType.Email, new EmailSubcriber() { Email = contact.Name, DisplayName = contact.Name });
-                else if (contact.ContactType == (int)ContactType.Skype)
-                    _notifierCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
-            }
-            
-            _isRunning = true;
+                _notifierCenter = new AntelopeObserver();
+                _notifierCenter.AddNotifier((int)ContactType.Email, GmailNotifier.CreateNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
+                _notifierCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
 
-            while(_isRunning)
-            {
-                var accounts = _accountRepository.GetAll();
+                var contacts = _accountRepository.GetAllContacts();
 
-                foreach (var account in accounts)
+                foreach (var contact in contacts)
                 {
-                    if(account.NotifyThreshold <= account.Balance && account.Balance <= account.AutoActionThreshold)
-                    {
-                        SendNotification(account);
-                    }
+                    if (contact.ContactType == (int)ContactType.Email)
+                        _notifierCenter.Register((int)ContactType.Email, new EmailSubcriber() { Email = contact.Name, DisplayName = contact.Name });
+                    else if (contact.ContactType == (int)ContactType.Skype)
+                        _notifierCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
                 }
 
-                Thread.Sleep(config.MonitoringPeriod);
+                _isRunning = true;
+
+                while (_isRunning)
+                {
+                    var accounts = _accountRepository.GetAll();
+
+                    foreach (var account in accounts)
+                    {
+                        if (account.NotifyThreshold <= account.Balance && account.Balance <= account.AutoActionThreshold)
+                        {
+                            SendNotification(account);
+                        }
+                    }
+
+                    Thread.Sleep(config.MonitoringPeriod);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Caught exception: {0}", ex.ToString()));
             }
         }
 

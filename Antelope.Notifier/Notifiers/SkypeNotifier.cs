@@ -28,7 +28,7 @@ namespace Antelope.Notifier.Notifiers
             _skypeHandler = new Skype();
             _skypeHandler.Attach(7, false);
 
-            if (!_skypeHandler.Client.IsRunning)
+            if (!_skypeHandler.Client.IsRunning && ((ISkype) _skypeHandler).AttachmentStatus == TAttachmentStatus.apiAttachSuccess)
                 return false;
 
             _friends = new List<SkypeUser>();

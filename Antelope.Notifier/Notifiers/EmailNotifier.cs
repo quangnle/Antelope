@@ -23,7 +23,7 @@ namespace Antelope.Notifier.Notifiers
         public abstract int SmtpPort();
         public abstract int SmtpSslPort();
 
-        public EmailNotifier(string emailAddr, string password, string emailDisplayName)
+        protected bool Init(string emailAddr, string password, string emailDisplayName)
         {
             _emailAddr = emailAddr;
             _emailPassword = password;
@@ -39,6 +39,8 @@ namespace Antelope.Notifier.Notifiers
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(_emailAddr, _emailPassword)
             };
+
+            return true;
         }
 
         public string Name()
