@@ -29,10 +29,10 @@ namespace Antelope.Processors
             _accountRepository = new AccountRepository(context);
         }
 
-        public void Start()
+        public void Start(AntelopeConfiguration config)
         {
             _notifierCenter = new AntelopeObserver();
-            _notifierCenter.AddNotifier((int)ContactType.Email, new GmailNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong"));
+            _notifierCenter.AddNotifier((int)ContactType.Email, new GmailNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
             _notifierCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
 
             var contacts = _accountRepository.GetAllContacts();
@@ -44,8 +44,6 @@ namespace Antelope.Processors
                 else if (contact.ContactType == (int)ContactType.Skype)
                     _notifierCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
             }
-
-            var mp = 3000;
             
             _isRunning = true;
 
@@ -61,7 +59,7 @@ namespace Antelope.Processors
                     }
                 }
 
-                Thread.Sleep(mp);
+                Thread.Sleep(config.MonitoringPeriod);
             }
         }
 
@@ -72,7 +70,8 @@ namespace Antelope.Processors
 
         private void SendNotification(AccountViewModel account)
         {
-            var content = string.Format("Account {3}/{0}/{1} with balance '{2}' exceeded the limit", account.Number, account.Name, account.Balance, account.BankName);
+            var content = string.Format("Account {3}/{0}/{1} with balance '{2}' exceeded the limit", 
+                            account.Number, account.Name, account.Balance, account.BankName);
 
             _notifierCenter.Notify((int)ContactType.Email,
                 new EmailNotifierData()
