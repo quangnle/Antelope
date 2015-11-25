@@ -13,7 +13,7 @@ namespace Antelope.Notifier.Notifiers
     public class SkypeNotifier : INotifier
     {
         private Skype _skypeHandler;
-        private List<SkypeUser> _friends; 
+        private List<SkypeUser> _friends;
 
         public bool AttachToSkype()
         {
