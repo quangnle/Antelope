@@ -8,7 +8,7 @@ namespace Antelope.Data.Enums
 {
     public enum ContactType
     {
-        Email,
-        Skype
+        Email = 1,
+        Skype = 2
     }
 }

@@ -33,7 +33,7 @@ namespace Antelope.Processors
         {
             _notifierCenter = new AntelopeObserver();
             _notifierCenter.AddNotifier((int)ContactType.Email, new GmailNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong"));
-            _notifierCenter.AddNotifier((int)ContactType.Skype, new SkypeNotifier());
+            _notifierCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
 
             var contacts = _accountRepository.GetAllContacts();
 
@@ -77,7 +77,7 @@ namespace Antelope.Processors
             _notifierCenter.Notify((int)ContactType.Email,
                 new EmailNotifierData()
                 {
-                    Title = string.Format("Antelope Nitification - {0}", DateTime.Now.ToString()),
+                    Title = string.Format("Antelope Notification - {0}", DateTime.Now.ToString()),
                     Content = content
                 });
 
