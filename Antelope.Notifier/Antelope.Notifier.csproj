@@ -44,7 +44,6 @@
     <Compile Include="Notifiers\GmailNotifier.cs" />
     <Compile Include="Notifiers\INotifier.cs" />
     <Compile Include="Notifiers\EmailNotifier.cs" />
-    <Compile Include="Notifiers\NotificationType.cs" />
     <Compile Include="Notifiers\SkypeNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NotifiedData\EmailNotifiedData.cs" />
