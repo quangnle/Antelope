@@ -1,4 +1,5 @@
 ﻿using Antelope.Data.Models;
+using Antelope.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,13 @@ namespace Antelope.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private AccountRepository _accRepo;
         // GET: Home
         [Authorize]
         public ActionResult Index()
         {
-            return View();
+            _accRepo = new AccountRepository(new MainModel());
+            return View(_accRepo.GetAll());
         }
         [AllowAnonymous]
         public ActionResult Login()
