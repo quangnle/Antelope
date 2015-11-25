@@ -10,3 +10,5 @@
 /Antelope/bin/Debug
 /Antelope/obj/Debug
 /packages
+/Antelope.Web/bin
+/Antelope.Web/obj/Debug
