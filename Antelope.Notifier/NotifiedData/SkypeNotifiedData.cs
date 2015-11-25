@@ -8,7 +8,7 @@ namespace Antelope.Notifier.NotifiedData
 {
     public class SkypeNotifiedData: BaseNotifiedData
     {
-        public string Account { get; set; }
+        public string ToAccountHandle { get; set; }
         public string Message { get; set; }
     }
 }

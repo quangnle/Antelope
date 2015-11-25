@@ -8,5 +8,6 @@ namespace Antelope.Notifier.NotifiedData
 {
     public class BaseNotifiedData
     {
+        
     }
 }

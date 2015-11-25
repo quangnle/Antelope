@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntelopeObserver.cs" />
+    <Compile Include="Exceptions\AntelopeException.cs" />
+    <Compile Include="Models\SkypeUser.cs" />
     <Compile Include="NotifiedData\SkypeNotifiedData.cs" />
     <Compile Include="Notifiers\GmailNotifier.cs" />
     <Compile Include="Notifiers\INotifier.cs" />
@@ -50,8 +52,17 @@
     <Compile Include="NotifiedData\BaseNotifiedData.cs" />
     <Compile Include="SubcriberGroup.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Exceptions\" />
+    <COMReference Include="SKYPE4COMLib">
+      <Guid>{03282B5D-B38F-469D-849A-09B0A7F4881B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

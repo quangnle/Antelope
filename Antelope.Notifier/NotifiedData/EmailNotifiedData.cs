@@ -9,7 +9,7 @@ namespace Antelope.Notifier.NotifiedData
     public class EmailNotifiedData: BaseNotifiedData
     {
         public string Email { get; set; }
-        public string DisplayedName { get; set; }
+        public string DisplayName { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
     }

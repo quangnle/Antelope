@@ -1,4 +1,5 @@
-﻿using Antelope.Notifier.NotifiedData;
+﻿using Antelope.Notifier.Exceptions;
+using Antelope.Notifier.NotifiedData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,10 +52,10 @@ namespace Antelope.Notifier.Notifiers
             var emailData = data as EmailNotifiedData;
 
             if(emailData == null)
-                throw new ArgumentNullException();
+                throw new AntelopeInvalidNotifiedData();
 
             var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
-            var toAddress = new MailAddress(emailData.Email, emailData.DisplayedName);
+            var toAddress = new MailAddress(emailData.Email, emailData.DisplayName);
 
             using (var message = new MailMessage(fromAddress, toAddress)
             {
