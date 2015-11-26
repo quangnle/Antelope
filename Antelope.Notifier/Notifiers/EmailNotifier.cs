@@ -1,5 +1,6 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Antelope.Notifier.Notifiers
 {
     public abstract class EmailNotifier : INotifier
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         private string _emailAddr;
         private string _emailPassword;
         private string _emailDisplayName;
@@ -56,16 +59,24 @@ namespace Antelope.Notifier.Notifiers
             if(emailData == null || emailSubcriber == null)
                 throw new AntelopeInvalidParameter();
 
-            var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
-            var toAddress = new MailAddress(emailSubcriber.Email, emailSubcriber.DisplayName);
 
-            using (var message = new MailMessage(fromAddress, toAddress)
+            try
             {
-                Subject = emailData.Title,
-                Body = emailData.Content
-            })
+                var fromAddress = new MailAddress(_emailAddr, _emailDisplayName);
+                var toAddress = new MailAddress(emailSubcriber.Email, emailSubcriber.DisplayName);
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = emailData.Title,
+                    Body = emailData.Content
+                })
+                {
+                    _smtp.Send(message);
+                }
+            }
+            catch (Exception ex)
             {
-                _smtp.Send(message);
+                _logger.Error("Caught exception when sending notification through email to {0}: {1}", emailSubcriber.Email, ex.ToString());
             }
         }
     }

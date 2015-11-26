@@ -138,6 +138,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountConfigsController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\ActionsController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\GeneralConfigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -147,7 +148,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\MyHub.cs" />
-    <Compile Include="Hubs\NotifyingHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +185,11 @@
     <Content Include="Views\Contacts\Edit.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Actions\Create.cshtml" />
+    <Content Include="Views\Actions\Delete.cshtml" />
+    <Content Include="Views\Actions\Details.cshtml" />
+    <Content Include="Views\Actions\Edit.cshtml" />
+    <Content Include="Views\Actions\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

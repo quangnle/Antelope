@@ -23,9 +23,14 @@ namespace Antelope
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CoreProcessor _processor;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            //var service = new FakedDaggerService();
+            //Task.Run(() => service.Start()); 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -40,13 +45,45 @@ namespace Antelope
                 MonitoringPeriod = Convert.ToInt32(txtMonitoringPeriod.Text)
             };
 
-            var processor = new CoreProcessor(context);
-            Task.Run(() => processor.Start(config));
+            _processor = new CoreProcessor(context);
+            _processor.OnStartSuccess += OnStartSuccess;
+            _processor.OnStopSuccess += OnStopSuccess;
+            _processor.OnUpdateStatus += OnUpdateStatus;
+
+            Task.Run(() => _processor.Start(config));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            _processor.Stop();
+        }
 
+        private void OnStartSuccess()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                btnStart.IsEnabled = false;
+                btnStop.IsEnabled = true;
+                OnUpdateStatus("Started");
+            });
+        }
+
+        private void OnStopSuccess()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                btnStart.IsEnabled = true;
+                btnStop.IsEnabled = false;
+                OnUpdateStatus("Stopped");
+            });
+        }
+
+        private void OnUpdateStatus(string status)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                labelStatus.Content = status;
+            });
         }
     }
 }

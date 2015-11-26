@@ -40,6 +40,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.2.1\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -128,6 +131,10 @@
     <ProjectReference Include="..\Antelope.Notifier\Antelope.Notifier.csproj">
       <Project>{899e5330-4e38-4324-9d2c-bc92910eec28}</Project>
       <Name>Antelope.Notifier</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Antelope.Remoter\Antelope.Remoter.csproj">
+      <Project>{39f83d6f-55d7-47b2-a58f-dadf18fc3abe}</Project>
+      <Name>Antelope.Remoter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
