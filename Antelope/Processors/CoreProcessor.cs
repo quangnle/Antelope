@@ -7,6 +7,7 @@ using Antelope.Notifier;
 using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
 using Antelope.Notifier.Notifiers;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace Antelope.Processors
 {
     class CoreProcessor
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         private readonly int MilisecondsPerTick = 250;
 
         private MainModel _context;

@@ -12,3 +12,5 @@
 /packages
 /Antelope.Web/bin
 /Antelope.Web/obj/Debug
+/Antelope.Notifier/bin/Debug
+/Antelope.Tests/bin/Debug
