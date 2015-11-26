@@ -19,10 +19,20 @@ namespace Antelope.Processors
 {
     class CoreProcessor
     {
+        private readonly int MilisecondsPerTick = 250;
+
         private MainModel _context;
         private bool _isRunning = false;
 
         private AccountRepository _accountRepository;
+
+        public delegate void StartSuccessDelegate();
+        public delegate void StopSuccessDelegate();
+        public delegate void ChangeStatusDelegate(string status);
+
+        public StartSuccessDelegate OnStartSuccess;
+        public StopSuccessDelegate OnStopSuccess;
+        public ChangeStatusDelegate OnUpdateStatus;
 
         public CoreProcessor(MainModel context)
         {
@@ -34,11 +44,15 @@ namespace Antelope.Processors
         {
             try
             {
+                if (OnStartSuccess != null)
+                    OnStartSuccess();
+
                 _isRunning = true;
 
                 while (_isRunning)
                 {
                     // realtime database loading
+                    UpdateStatus("Registering notifiers");
                     var notificationCenter = new AntelopeObserver();
                     notificationCenter.AddNotifier((int)ContactType.Email, GmailNotifier.CreateNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
                     notificationCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
@@ -53,6 +67,7 @@ namespace Antelope.Processors
                             notificationCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
                     }
 
+                    UpdateStatus("Sending notification to operators");
                     var accounts = _accountRepository.GetAll();
 
                     foreach (var account in accounts)
@@ -63,12 +78,17 @@ namespace Antelope.Processors
                         }
                     }
 
-                    Thread.Sleep(config.MonitoringPeriod);
+                    CountDown(config.MonitoringPeriod);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format("Caught exception: {0}", ex.ToString()));
+            }
+            finally
+            {
+                if (OnStopSuccess != null)
+                    OnStopSuccess();
             }
         }
 
@@ -90,6 +110,31 @@ namespace Antelope.Processors
                 });
 
             notificationCenter.Notify((int)ContactType.Skype, new SkypeNotifierData() { Message = content });
+        }
+
+        private void UpdateStatus(string status)
+        {
+            if (OnUpdateStatus != null)
+                OnUpdateStatus(status);
+        }
+
+        private void CountDown(int miliseconds)
+        {
+            var now = DateTime.Now;
+
+            var bStopCountingDown = false;
+
+            while (!bStopCountingDown)
+            {
+                var dt = DateTime.Now.Subtract(now).TotalMilliseconds;
+                if (!_isRunning || dt >= miliseconds)
+                    bStopCountingDown = true;
+                else
+                {
+                    UpdateStatus(string.Format("Waiting {0} seconds to wake up", (int)((miliseconds - dt) / 1000)));
+                    Thread.Sleep(MilisecondsPerTick);
+                }
+            }
         }
     }
 }
