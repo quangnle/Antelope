@@ -35,9 +35,6 @@ namespace Antelope.Notifier
 
         public void Notify(int notifierId, BaseNotifierData data)
         {
-            if (!ExistSubrcibersOn(notifierId))
-                return;
-
             var notifier = _notifiers[notifierId];
 
             foreach (var subcriber in _subcribers[notifierId])
@@ -52,11 +49,6 @@ namespace Antelope.Notifier
             {
                 Notify(notifierId, data);
             }
-        }
-
-        private bool ExistSubrcibersOn(int notifierId)
-        {
-            return (_subcribers.ContainsKey(notifierId) && _subcribers[notifierId].Count > 0);
         }
     }
 }

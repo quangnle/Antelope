@@ -1,6 +1,5 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
-using NLog;
 using SKYPE4COMLib;
 using System;
 using System.Collections.Generic;
@@ -12,8 +11,6 @@ namespace Antelope.Notifier.Notifiers
 {
     public class SkypeNotifier : INotifier
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
-
         private Skype _skypeHandler;
         private List<SkypeUser> _friends;
 
@@ -64,14 +61,7 @@ namespace Antelope.Notifier.Notifiers
             if (_friends.Find(fr => fr.Handle == skypeSubcriber.Handle) == null)
                 throw new AntelopeUnknownTarget();
 
-            try
-            {
-                _skypeHandler.SendMessage(skypeSubcriber.Handle, skypeData.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error("Caught exception when sending notification through skype to {0}: {1}", skypeSubcriber.Handle, ex.ToString());
-            }            
+            _skypeHandler.SendMessage(skypeSubcriber.Handle, skypeData.Message);
         }
     }
 }
