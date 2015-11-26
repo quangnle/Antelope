@@ -23,8 +23,6 @@ namespace Antelope.Processors
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        private PaymentGateway _gateway = new PaymentGateway();
-
         private readonly int MilisecondsPerTick = 250;
 
         private MainModel _context;
@@ -103,6 +101,9 @@ namespace Antelope.Processors
 
         private void SendNotification(AntelopeObserver notificationCenter, List<AccountViewModel> accounts)
         {
+            if (accounts.Count == 0)
+                return;
+
             var content = string.Join("\n",
                 accounts.Select((account, idx) =>
                     string.Format("{0}. Account {1}/{2}/{3} with balance '{4}' exceeded the limit '{5}'",
@@ -126,9 +127,11 @@ namespace Antelope.Processors
 
         private void AutoTransferMoney(List<AccountViewModel> accounts)
         {
+            PaymentGateway gateway = new PaymentGateway();
+
             foreach (var account in accounts)
             {
-                _gateway.AutoTransferMoney(account.Id, account.AutoActionThreshold);
+                gateway.AutoTransferMoney(account.Id, account.AutoActionThreshold);
             }
         }
 

@@ -52,7 +52,7 @@ namespace Antelope.Remoter
                     var action = new Antelope.Data.Models.Action();
                     action.IdExceedIncident = log.Id;
                     action.ActionTime = DateTime.Now;
-                    action.Description = string.Format("transfer {0} to account {1}", amount, toAccId);
+                    action.Description = string.Format("transfer {0} to account {1}/{2}", amount, toAcc.Number, toAcc.Name);
                     action.IdAccount = fromAccId;
                     action.Balance = fromAcc.Balance;
                     _context.Actions.Add(action);
