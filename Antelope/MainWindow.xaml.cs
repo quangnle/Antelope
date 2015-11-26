@@ -1,6 +1,7 @@
 ﻿using Antelope.Data;
 using Antelope.Data.Models;
 using Antelope.Processors;
+using Antelope.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace Antelope
         public MainWindow()
         {
             InitializeComponent();
+
+            //var service = new FakedDaggerService();
+            //Task.Run(() => service.Start()); 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

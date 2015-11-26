@@ -7,6 +7,7 @@ using Antelope.Notifier;
 using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
 using Antelope.Notifier.Notifiers;
+using Antelope.Remoter;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Antelope.Processors
     class CoreProcessor
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+
+        private PaymentGateway _gateway = new PaymentGateway();
 
         private readonly int MilisecondsPerTick = 250;
 
@@ -73,9 +76,11 @@ namespace Antelope.Processors
                     UpdateStatus("Sending notification to operators");
                     var accounts = _accountRepository.GetAll();
 
-                    var exceedLimitAccounts = accounts.Where(acc => acc.NotifyThreshold <= acc.Balance && acc.Balance <= acc.AutoActionThreshold).ToList();
+                    var exceedNotificationLimitAccounts = accounts.Where(acc => acc.NotifyThreshold <= acc.Balance && acc.Balance <= acc.AutoActionThreshold).ToList();
+                    var exceedLimitAccounts = accounts.Where(acc => acc.Balance >= acc.AutoActionThreshold).ToList();
 
-                    SendNotification(notificationCenter, exceedLimitAccounts);
+                    SendNotification(notificationCenter, exceedNotificationLimitAccounts);
+                    AutoTransferMoney(exceedLimitAccounts);
 
                     CountDown(config.MonitoringPeriod);
                 }
@@ -117,6 +122,14 @@ namespace Antelope.Processors
                 });
 
             notificationCenter.Notify((int)ContactType.Skype, new SkypeNotifierData() { Message = content });
+        }
+
+        private void AutoTransferMoney(List<AccountViewModel> accounts)
+        {
+            foreach (var account in accounts)
+            {
+                _gateway.AutoTransferMoney(account.Id, account.AutoActionThreshold);
+            }
         }
 
         private void UpdateStatus(string status)
