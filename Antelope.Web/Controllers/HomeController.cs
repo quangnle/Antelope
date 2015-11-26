@@ -1,5 +1,6 @@
 ﻿using Antelope.Data.Models;
 using Antelope.Data.Repositories;
+using Antelope.Web.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,5 +88,14 @@ namespace Antelope.Web.Controllers
             _accRepo = new AccountRepository(new MainModel());
             return View("Index", _accRepo.GetMatchedAcc(c1 == null ? false : true, c2 == null ? false : true, c3 == null ? false : true));
         }
+        /// <summary>
+        /// Chat Action
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Chat()
+        {
+            return View();
+        }
+
     }
 }
