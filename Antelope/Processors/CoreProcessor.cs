@@ -70,13 +70,9 @@ namespace Antelope.Processors
                     UpdateStatus("Sending notification to operators");
                     var accounts = _accountRepository.GetAll();
 
-                    foreach (var account in accounts)
-                    {
-                        if (account.NotifyThreshold <= account.Balance && account.Balance <= account.AutoActionThreshold)
-                        {
-                            SendNotification(notificationCenter, account);
-                        }
-                    }
+                    var exceedLimitAccounts = accounts.Where(acc => acc.NotifyThreshold <= acc.Balance && acc.Balance <= acc.AutoActionThreshold).ToList();
+
+                    SendNotification(notificationCenter, exceedLimitAccounts);
 
                     CountDown(config.MonitoringPeriod);
                 }
@@ -97,15 +93,23 @@ namespace Antelope.Processors
             _isRunning = false;
         }
 
-        private void SendNotification(AntelopeObserver notificationCenter, AccountViewModel account)
+        private void SendNotification(AntelopeObserver notificationCenter, List<AccountViewModel> accounts)
         {
-            var content = string.Format("Account {3}/{0}/{1} with balance '{2}' exceeded the limit", 
-                            account.Number, account.Name, account.Balance, account.BankName);
+            var content = string.Join("\n",
+                accounts.Select((account, idx) =>
+                    string.Format("{0}. Account {1}/{2}/{3} with balance '{4}' exceeded the limit '{5}'",
+                            (idx + 1), // {0}
+                            account.BankName, // {1}
+                            account.Number, // {2}
+                            account.Name, // {3}
+                            account.Balance, // {4}
+                            account.NotifyThreshold // {5}
+                    )));
 
             notificationCenter.Notify((int)ContactType.Email,
                 new EmailNotifierData()
                 {
-                    Title = string.Format("Antelope Notification - {0}", DateTime.Now.ToString()),
+                    Title = string.Format("Antelope Notification - {0} accounts exceeded the balance", accounts.Count),
                     Content = content
                 });
 
