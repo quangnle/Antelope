@@ -73,5 +73,19 @@ namespace Antelope.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult Filter()
+        {
+            _accRepo = new AccountRepository(new MainModel());
+            return View("Index", _accRepo.GetMatchedAcc(true,true,true));
+        }
+
+        [HttpPost]
+        public ActionResult Filter(string[] c1, string[] c2, string[] c3)
+        {
+            _accRepo = new AccountRepository(new MainModel());
+            return View("Index", _accRepo.GetMatchedAcc(c1 == null ? false : true, c2 == null ? false : true, c3 == null ? false : true));
+        }
     }
 }
