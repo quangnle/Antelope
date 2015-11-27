@@ -1,6 +1,7 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
 using Microsoft.AspNet.SignalR.Client;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,12 @@ namespace Antelope.Notifier.Notifiers
 {
     public class SignalRNotifier: INotifier
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         HubConnection _connection;
 
         public static SignalRNotifier CreateNotifier()
         {
             var notifier = new SignalRNotifier();
-
             return notifier;
         }
 
@@ -29,25 +30,20 @@ namespace Antelope.Notifier.Notifiers
             if (signalrSubcriber == null || signalrData == null)
                 throw new AntelopeInvalidParameter();
 
-            _connection = new HubConnection(signalrSubcriber.Url);
-            _connection.Closed += OnConnectionClosed;
-            IHubProxy proxy = _connection.CreateHubProxy("MyHub");
-            proxy.On<string, string>("AddMessage", (name, message) =>
-                {
-
-                });
-
             try
             {
+                _connection = new HubConnection(signalrSubcriber.Url);
+                _connection.Closed += OnConnectionClosed;
+
                 await _connection.Start();
             }
             catch (HttpRequestException)
             {
-                
-                throw;
+                _logger.Info("Can't connect to {0}", signalrSubcriber.Url);
             }
 
-            await proxy.Invoke("Send", signalrData.Content);           
+            var proxy = _connection.CreateHubProxy(signalrSubcriber.HubName);
+            await proxy.Invoke(signalrSubcriber.Method, signalrData.Content);           
         }
 
         private void OnConnectionClosed()

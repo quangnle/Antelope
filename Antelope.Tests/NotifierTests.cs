@@ -114,7 +114,7 @@ namespace Antelope.Tests
         {
             var notifier = SignalRNotifier.CreateNotifier();
             notifier.Notify(
-                new SignalRSubcriber() { Url = "http://localhost:8081/signalr" },
+                new SignalRSubcriber() { Url = "http://localhost:8081/signalr", HubName = "MyHub", Method = "Send" },
                 new MessageNotifierData() { Content = "notify" });
         }
     }

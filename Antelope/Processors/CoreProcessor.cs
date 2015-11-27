@@ -73,7 +73,8 @@ namespace Antelope.Processors
                         else if (contact.ContactType == (int)ContactType.Skype)
                             notificationCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
                         else if (contact.ContactType == (int)ContactType.SignalrBasedWebsite)
-                            notificationCenter.Register((int)ContactType.SignalrBasedWebsite, new SignalRSubcriber() { Url = contact.Name });
+                            //TODO: add configuration for Signalr Subcribers
+                            notificationCenter.Register((int)ContactType.SignalrBasedWebsite, new SignalRSubcriber() { Url = contact.Name, HubName = "MyHub", Method = "Send" });
                     }
 
                     UpdateStatus("Sending notification to operators");
