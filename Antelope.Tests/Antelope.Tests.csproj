@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="NotifierTests.cs" />
+    <Compile Include="ObserverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

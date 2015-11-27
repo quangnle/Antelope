@@ -12,3 +12,8 @@
 /packages
 /Antelope.Web/bin
 /Antelope.Web/obj/Debug
+/Antelope.Notifier/bin/Debug
+/Antelope.Remoter/bin/Debug
+/Antelope.WPFClient/bin/Debug
+/Antelope.WPFClient/obj/Debug
+/Antelope.Tests/bin/Debug
