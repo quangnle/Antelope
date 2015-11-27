@@ -55,6 +55,8 @@ namespace Antelope.Processors
 
                 while (_isRunning)
                 {
+                    _context.ReloadAllDatabase();
+
                     // realtime database loading
                     UpdateStatus("Registering notifiers");
                     var notificationCenter = new AntelopeObserver();
