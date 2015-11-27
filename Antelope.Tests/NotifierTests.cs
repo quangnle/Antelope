@@ -74,14 +74,14 @@ namespace Antelope.Tests
 
         [TestMethod]
         [ExpectedException(typeof(AntelopeInvalidParameter))]
-        public void Notifier_GmailNotifierInvalidData()
+        public void Notifier_Gmail_NotifierInvalidData()
         {
             var notifier = GmailNotifier.CreateNotifier("foo", "foo", "foo");
             notifier.Notify(new EmailSubcriber(), new SkypeNotifierData());
         }
 
         [TestMethod]
-        public void Notifier_SkypeNotifierSuccessful()
+        public void Notifier_Skype_NotifierSuccessful()
         {
             var notifier = new SkypeNotifier();
             notifier.AttachToSkype();
@@ -92,7 +92,7 @@ namespace Antelope.Tests
 
         [TestMethod]
         [ExpectedException(typeof(AntelopeInvalidParameter))]
-        public void Notifier_SkypeNotifierInvalidData()
+        public void Notifier_Skype_NotifierInvalidData()
         {
             var notifier = new SkypeNotifier();
             notifier.Notify(new EmailSubcriber(), new EmailNotifierData());
@@ -100,7 +100,7 @@ namespace Antelope.Tests
         
         [TestMethod]
         [ExpectedException(typeof(AntelopeUnknownTarget))]
-        public void Notifier_SkypeNotifierUnknownTarget()
+        public void Notifier_Skype_NotifierUnknownTarget()
         {
             var notifier = new SkypeNotifier();
             notifier.AttachToSkype();
