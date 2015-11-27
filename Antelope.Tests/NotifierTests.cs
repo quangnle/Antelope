@@ -57,7 +57,7 @@ namespace Antelope.Tests
         }
 
         [TestMethod]
-        public void TestGmailNotifier()
+        public void Notifier_TestGmailNotifier()
         {
             var notifier = GmailNotifier.CreateNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong");
             var subcriber = new EmailSubcriber()
@@ -77,15 +77,25 @@ namespace Antelope.Tests
 
         [TestMethod]
         [ExpectedException(typeof(AntelopeInvalidParameter))]
-        public void GmailNotifierInvalidData()
+        public void Notifier_GmailNotifierInvalidData()
         {
             var notifier = GmailNotifier.CreateNotifier("foo", "foo", "foo");
             notifier.Notify(new EmailSubcriber(), new SkypeNotifierData());
         }
 
         [TestMethod]
+        public void Notifier_SkypeNotifierSuccessful()
+        {
+            var notifier = new SkypeNotifier();
+            notifier.AttachToSkype();
+            notifier.Notify(
+                new SkypeSubcriber() { Handle = "legoslight" },
+                new SkypeNotifierData() { Message = "antelope - message" });
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(AntelopeInvalidParameter))]
-        public void SkypeNotifierInvalidData()
+        public void Notifier_SkypeNotifierInvalidData()
         {
             var notifier = new SkypeNotifier();
             notifier.Notify(new EmailSubcriber(), new EmailNotifierData());
@@ -93,23 +103,13 @@ namespace Antelope.Tests
         
         [TestMethod]
         [ExpectedException(typeof(AntelopeUnknownTarget))]
-        public void SkypeNotifierUnknownTarget()
+        public void Notifier_SkypeNotifierUnknownTarget()
         {
             var notifier = new SkypeNotifier();
             notifier.AttachToSkype();
             notifier.Notify(
                 new SkypeSubcriber() { Handle = "anonymous" },
                 new SkypeNotifierData() { Message = "send me" });
-        }
-
-        [TestMethod]
-        public void SkypeNotifierSuccessful()
-        {
-            var notifier = new SkypeNotifier();
-            notifier.AttachToSkype();
-            notifier.Notify(
-                new SkypeSubcriber() { Handle = "legoslight" },
-                new SkypeNotifierData() { Message = "antelope - message" });
         }
     }
 }
