@@ -15,32 +15,31 @@ namespace Antelope.Notifier
 
         private Dictionary<int, List<BaseSubcriber>> _subcribers = new Dictionary<int, List<BaseSubcriber>>();
 
-        public void AddNotifier(int notifierId, INotifier notifier)
+        public void AddNotifier(int channel, INotifier notifier)
         {
             if (notifier == null)
                 throw new AntelopeInvalidNotifier("notifier is null");
 
-            _notifiers[notifierId] = notifier;
+            _notifiers[channel] = notifier;
+            _subcribers[channel] = new List<BaseSubcriber>();
         }
 
-        public void Register(int notifierId, BaseSubcriber subcriber)
+        public void Register(int channel, BaseSubcriber subcriber)
         {
-            if (!_subcribers.ContainsKey(notifierId))
-            {
-                _subcribers[notifierId] = new List<BaseSubcriber>();
-            }
+            if (!ExistNotifier(channel))
+                throw new AntelopeNotiferNotFound();
 
-            _subcribers[notifierId].Add(subcriber);
+            _subcribers[channel].Add(subcriber);
         }
 
-        public void Notify(int notifierId, BaseNotifierData data)
+        public void Notify(int channel, BaseNotifierData data)
         {
-            if (!ExistSubrcibersOn(notifierId))
+            if (!ExistNotifier(channel) || !ExistSubrcibersOn(channel))
                 return;
 
-            var notifier = _notifiers[notifierId];
+            var notifier = _notifiers[channel];
 
-            foreach (var subcriber in _subcribers[notifierId])
+            foreach (var subcriber in _subcribers[channel])
             {
                 notifier.Notify(subcriber, data);
             }
@@ -54,9 +53,14 @@ namespace Antelope.Notifier
             }
         }
 
-        private bool ExistSubrcibersOn(int notifierId)
+        private bool ExistNotifier(int channel)
         {
-            return (_subcribers.ContainsKey(notifierId) && _subcribers[notifierId].Count > 0);
+            return _notifiers.ContainsKey(channel);
+        }
+
+        private bool ExistSubrcibersOn(int channel)
+        {
+            return (_subcribers.ContainsKey(channel) && _subcribers[channel].Count > 0);
         }
     }
 }

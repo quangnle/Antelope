@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Models
 {
-    public class BaseSubcriber
+    public abstract class BaseSubcriber
     {
+        public abstract string Name();
     }
 }

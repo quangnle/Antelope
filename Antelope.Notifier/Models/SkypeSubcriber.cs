@@ -9,5 +9,10 @@ namespace Antelope.Notifier.Models
     public class SkypeSubcriber: BaseSubcriber
     {
         public string Handle { get; set; }
+
+        public override string Name()
+        {
+            return "Skype Subcriber";
+        }
     }
 }

@@ -23,4 +23,5 @@ namespace Antelope.Notifier.Exceptions
             return string.Format("{0}: {1}", "AntelopeInvalidNotifier", _message);
         }
     }
+    public class AntelopeNotiferNotFound : Exception { }
 }

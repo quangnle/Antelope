@@ -10,5 +10,10 @@ namespace Antelope.Notifier.Models
     {
         public string Email { get; set; }
         public string DisplayName { get; set; }
+
+        public override string Name()
+        {
+            return "Email Subcriber";
+        }
     }
 }
