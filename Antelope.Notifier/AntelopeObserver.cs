@@ -18,7 +18,7 @@ namespace Antelope.Notifier
         public void AddNotifier(int notifierId, INotifier notifier)
         {
             if (notifier == null)
-                throw new AntelopeInvalidNotifier(null);
+                throw new AntelopeInvalidNotifier("notifier is null");
 
             _notifiers[notifierId] = notifier;
         }

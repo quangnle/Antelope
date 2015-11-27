@@ -12,15 +12,15 @@ namespace Antelope.Notifier.Exceptions
     public class AntelopeUninitializedNotifier : Exception { }
     public class AntelopeInvalidNotifier : Exception 
     {
-        private INotifier _notifier;
-        public AntelopeInvalidNotifier(INotifier notifier)
+        private string _message;
+        public AntelopeInvalidNotifier(string message)
         {
-            _notifier = notifier;
+            _message = message;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}", "AntelopeInvalidNotifier", (_notifier != null)?_notifier.Name():"null");
+            return string.Format("{0}: {1}", "AntelopeInvalidNotifier", _message);
         }
     }
 }
