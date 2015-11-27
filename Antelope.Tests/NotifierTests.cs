@@ -57,6 +57,14 @@ namespace Antelope.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AntelopeInvalidNotifier))]
+        public void Observer_AddTaintedNotifier()
+        {
+            var observer = new AntelopeObserver();
+            observer.AddNotifier(1, null);
+        }
+
+        [TestMethod]
         public void Notifier_TestGmailNotifier()
         {
             var notifier = GmailNotifier.CreateNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong");
