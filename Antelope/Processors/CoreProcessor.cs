@@ -60,6 +60,7 @@ namespace Antelope.Processors
                     var notificationCenter = new AntelopeObserver();
                     notificationCenter.AddNotifier((int)ContactType.Email, GmailNotifier.CreateNotifier(config.Email, config.EmailPassword, config.EmailDisplayName));
                     notificationCenter.AddNotifier((int)ContactType.Skype, SkypeNotifier.CreateNotifier());
+                    notificationCenter.AddNotifier((int)ContactType.SignalrBasedWebsite, SignalRNotifier.CreateNotifier());
 
                     var contacts = _accountRepository.GetAllContacts();
 
@@ -69,6 +70,8 @@ namespace Antelope.Processors
                             notificationCenter.Register((int)ContactType.Email, new EmailSubcriber() { Email = contact.Name, DisplayName = contact.Name });
                         else if (contact.ContactType == (int)ContactType.Skype)
                             notificationCenter.Register((int)ContactType.Skype, new SkypeSubcriber() { Handle = contact.Name });
+                        else if (contact.ContactType == (int)ContactType.SignalrBasedWebsite)
+                            notificationCenter.Register((int)ContactType.SignalrBasedWebsite, new SignalRSubcriber() { Url = contact.Name });
                     }
 
                     UpdateStatus("Sending notification to operators");
@@ -123,6 +126,8 @@ namespace Antelope.Processors
                 });
 
             notificationCenter.Notify((int)ContactType.Skype, new SkypeNotifierData() { Message = content });
+
+            notificationCenter.Notify((int)ContactType.SignalrBasedWebsite, new MessageNotifierData() { Content = content });
         }
 
         private void AutoTransferMoney(List<AccountViewModel> accounts)

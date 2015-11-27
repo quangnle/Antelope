@@ -17,7 +17,7 @@ namespace Antelope.Web.Controllers
         // GET: Actions
         public ActionResult Index()
         {
-            return View(db.Actions.ToList());
+            return View(db.Actions.OrderByDescending(action => action.ActionTime).ToList());
         }
 
         // GET: Actions/Details/5

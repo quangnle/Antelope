@@ -1,6 +1,7 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
 using Antelope.Notifier.Notifiers;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Antelope.Notifier
 {
     public class AntelopeObserver
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         private Dictionary<int, INotifier> _notifiers = new Dictionary<int, INotifier>();
 
         private Dictionary<int, List<BaseSubcriber>> _subcribers = new Dictionary<int, List<BaseSubcriber>>();
@@ -41,7 +44,14 @@ namespace Antelope.Notifier
 
             foreach (var subcriber in _subcribers[channel])
             {
-                notifier.Notify(subcriber, data);
+                try
+                {
+                    notifier.Notify(subcriber, data);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error("Caught Exception: {0}", ex.ToString());
+                }
             }
         }
 

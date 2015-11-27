@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Antelope.Data.Enums
+namespace Antelope.Notifier.Models
 {
-    public enum ContactType
+    public class MessageNotifierData: BaseNotifierData
     {
-        Email = 1,
-        Skype = 2,
-        SignalrBasedWebsite = 3
+        public string Content { get; set; }
     }
 }

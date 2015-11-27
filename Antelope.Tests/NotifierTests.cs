@@ -108,5 +108,14 @@ namespace Antelope.Tests
                 new SkypeSubcriber() { Handle = "anonymous" },
                 new SkypeNotifierData() { Message = "send me" });
         }
+
+        [TestMethod]
+        public void Notifier_SignalR_TestConnection()
+        {
+            var notifier = SignalRNotifier.CreateNotifier();
+            notifier.Notify(
+                new SignalRSubcriber() { Url = "http://localhost:8081/signalr" },
+                new MessageNotifierData() { Content = "notify" });
+        }
     }
 }

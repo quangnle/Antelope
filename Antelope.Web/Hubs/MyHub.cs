@@ -10,15 +10,9 @@ namespace Antelope.Web.Hubs
 {
     public class MyHub : Hub
     {
-        //public void Send(string name, string message)
-        //{
-        //    // Call the addNewMessageToPage method to update clients.
-        //    Clients.All.addMessage(name, message);
-        //}
-        public void Send(string accountNumber)
+        public void Send(string message)
         {
-            int count = new AccountRepository(new MainModel()).GetMatchedAcc(true, false, true).Count;
-            Clients.All.addMessage(count);
+            Clients.All.addMessage(message);
         }
     }
 }
