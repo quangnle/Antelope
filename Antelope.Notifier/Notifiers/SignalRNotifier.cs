@@ -21,12 +21,7 @@ namespace Antelope.Notifier.Notifiers
             return notifier;
         }
 
-        public string Name()
-        {
-            return "SignalR Notifier";
-        }
-
-        public async void Notify(BaseSubcriber subcriber, BaseNotifierData data)
+        public async void Notify(ISubcriber subcriber, BaseNotifierData data)
         {
             var signalrSubcriber = subcriber as SignalRSubcriber;
             var signalrData = data as MessageNotifierData;
@@ -58,6 +53,11 @@ namespace Antelope.Notifier.Notifiers
         private void OnConnectionClosed()
         {
 
+        }
+
+        public string Name
+        {
+            get { return "SignalR Notifier"; }
         }
     }
 }

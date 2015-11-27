@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Models
 {
-    public class SkypeSubcriber: BaseSubcriber
+    public class SkypeSubcriber: ISubcriber
     {
         public string Handle { get; set; }
 
-        public override string Name()
+        public string Name
         {
-            return "Skype Subcriber";
+            get { return "Skype Subcriber"; }
         }
     }
 }

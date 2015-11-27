@@ -16,7 +16,7 @@ namespace Antelope.Notifier
 
         private Dictionary<int, INotifier> _notifiers = new Dictionary<int, INotifier>();
 
-        private Dictionary<int, List<BaseSubcriber>> _subcribers = new Dictionary<int, List<BaseSubcriber>>();
+        private Dictionary<int, List<ISubcriber>> _subcribers = new Dictionary<int, List<ISubcriber>>();
 
         public void AddNotifier(int channel, INotifier notifier)
         {
@@ -24,10 +24,10 @@ namespace Antelope.Notifier
                 throw new AntelopeInvalidNotifier("notifier is null");
 
             _notifiers[channel] = notifier;
-            _subcribers[channel] = new List<BaseSubcriber>();
+            _subcribers[channel] = new List<ISubcriber>();
         }
 
-        public void Register(int channel, BaseSubcriber subcriber)
+        public void Register(int channel, ISubcriber subcriber)
         {
             if (!ExistNotifier(channel))
                 throw new AntelopeNotiferNotFound();

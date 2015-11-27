@@ -49,12 +49,7 @@ namespace Antelope.Notifier.Notifiers
             return true;
         }
 
-        public string Name()
-        {
-            return "Skype Notifier";
-        }
-
-        public void Notify(BaseSubcriber subcriber, BaseNotifierData data)
+        public void Notify(ISubcriber subcriber, BaseNotifierData data)
         {
             var skypeData = data as SkypeNotifierData;
             var skypeSubcriber = subcriber as SkypeSubcriber;
@@ -73,6 +68,11 @@ namespace Antelope.Notifier.Notifiers
             {
                 _logger.Error("Caught exception when sending notification through skype to {0}: {1}", skypeSubcriber.Handle, ex.ToString());
             }            
+        }
+
+        public string Name
+        {
+            get { return "Skype Notifier"; }
         }
     }
 }

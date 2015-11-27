@@ -44,12 +44,7 @@ namespace Antelope.Notifier.Notifiers
             };
         }
 
-        public string Name()
-        {
-            return string.Format("Email Notifier {0} <{1}>", _emailDisplayName, _emailAddr);
-        }
-
-        public void Notify(BaseSubcriber subcriber, BaseNotifierData data)
+        public void Notify(ISubcriber subcriber, BaseNotifierData data)
         {
             var emailSubcriber = subcriber as EmailSubcriber;
             var emailData = data as EmailNotifierData;
@@ -83,6 +78,11 @@ namespace Antelope.Notifier.Notifiers
             {
                 _logger.Error("Caught exception when sending notification through email to {0}: {1}", emailSubcriber.Email, ex.ToString());
             }
+        }
+
+        public string Name
+        {
+            get { return string.Format("Email Notifier {0} <{1}>", _emailDisplayName, _emailAddr); }
         }
     }
 }

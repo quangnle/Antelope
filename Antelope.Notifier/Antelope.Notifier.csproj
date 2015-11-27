@@ -60,7 +60,7 @@
     <Compile Include="Models\SkypeSubcriber.cs" />
     <Compile Include="Models\SkypeUser.cs" />
     <Compile Include="Models\SkypeNotifierData.cs" />
-    <Compile Include="Models\BaseSubcriber.cs" />
+    <Compile Include="Models\ISubcriber.cs" />
     <Compile Include="Notifiers\GmailNotifier.cs" />
     <Compile Include="Notifiers\INotifier.cs" />
     <Compile Include="Notifiers\EmailNotifier.cs" />

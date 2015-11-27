@@ -22,11 +22,11 @@ namespace Antelope.Tests
             var fooNotifier = new Mock<INotifier>();
             var voidNotifier = new Mock<INotifier>();
 
-            var mockSubcriber = new Mock<BaseSubcriber>();
-            mockSubcriber.Setup(s => s.Name()).Returns("Kong Subcriber");
+            var mockSubcriber = new Mock<ISubcriber>();
+            mockSubcriber.Setup(s => s.Name).Returns("Kong Subcriber");
 
-            var fooSubcriber = new Mock<BaseSubcriber>();
-            fooSubcriber.Setup(s => s.Name()).Returns("Foo Subcriber");
+            var fooSubcriber = new Mock<ISubcriber>();
+            fooSubcriber.Setup(s => s.Name).Returns("Foo Subcriber");
 
             var mockData = new Mock<BaseNotifierData>();
 
@@ -41,20 +41,20 @@ namespace Antelope.Tests
             observer.NotifyAll(mockData.Object);
             observer.Notify(1, mockData.Object);
 
-            mockNotifier.Verify(n => n.Notify(It.Is<BaseSubcriber>(s => s.Name() == "Kong Subcriber"), It.IsAny<BaseNotifierData>()));
-            mockNotifier.Verify(n => n.Notify(It.IsAny<BaseSubcriber>(), It.IsAny<BaseNotifierData>()), Times.Exactly(2));
+            mockNotifier.Verify(n => n.Notify(It.Is<ISubcriber>(s => s.Name == "Kong Subcriber"), It.IsAny<BaseNotifierData>()));
+            mockNotifier.Verify(n => n.Notify(It.IsAny<ISubcriber>(), It.IsAny<BaseNotifierData>()), Times.Exactly(2));
 
-            fooNotifier.Verify(n => n.Notify(It.Is<BaseSubcriber>(s => s.Name() == "Foo Subcriber"), It.IsAny<BaseNotifierData>()));
-            fooNotifier.Verify(n => n.Notify(It.IsAny<BaseSubcriber>(), It.IsAny<BaseNotifierData>()), Times.Exactly(1));
+            fooNotifier.Verify(n => n.Notify(It.Is<ISubcriber>(s => s.Name == "Foo Subcriber"), It.IsAny<BaseNotifierData>()));
+            fooNotifier.Verify(n => n.Notify(It.IsAny<ISubcriber>(), It.IsAny<BaseNotifierData>()), Times.Exactly(1));
 
-            voidNotifier.Verify(n => n.Notify(It.IsAny<BaseSubcriber>(), It.IsAny<BaseNotifierData>()), Times.Exactly(0));
+            voidNotifier.Verify(n => n.Notify(It.IsAny<ISubcriber>(), It.IsAny<BaseNotifierData>()), Times.Exactly(0));
         }
 
         [TestMethod]
         [ExpectedException(typeof(AntelopeNotiferNotFound))]
         public void Observer_AddSubcriberToInvalidChannel()
         {
-            var mockSubcriber = new Mock<BaseSubcriber>();
+            var mockSubcriber = new Mock<ISubcriber>();
 
             var observer = new AntelopeObserver();
             observer.Register(1, mockSubcriber.Object);

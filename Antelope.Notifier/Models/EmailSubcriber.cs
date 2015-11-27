@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Models
 {
-    public class EmailSubcriber: BaseSubcriber
+    public class EmailSubcriber: ISubcriber
     {
         public string Email { get; set; }
         public string DisplayName { get; set; }
 
-        public override string Name()
+        public string Name 
         {
-            return "Email Subcriber";
+            get { return "Email Subcriber"; } 
         }
     }
 }

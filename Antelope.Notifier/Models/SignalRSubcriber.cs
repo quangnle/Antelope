@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Models
 {
-    public class SignalRSubcriber: BaseSubcriber
+    public class SignalRSubcriber: ISubcriber
     {
         public string Url { get; set; }
 
-        public override string Name()
+        public string Name
         {
-            return "SignalR Subcriber";
+            get { return "SignalR Subcriber"; }
         }
     }
 }

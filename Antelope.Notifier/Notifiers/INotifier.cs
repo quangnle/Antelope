@@ -9,7 +9,7 @@ namespace Antelope.Notifier.Notifiers
 {
     public interface INotifier
     {
-        string Name();
-        void Notify(BaseSubcriber subcriber, BaseNotifierData data);
+        string Name { get; }
+        void Notify(ISubcriber subcriber, BaseNotifierData data);
     }
 }
