@@ -20,10 +20,11 @@ namespace Antelope.Notifier.Notifiers
         public static SkypeNotifier CreateNotifier()
         {
             var notifier = new SkypeNotifier();
-            if (notifier.AttachToSkype())
-                return notifier;
-            else
-                return null;
+
+            if (!notifier.AttachToSkype())
+                throw new AntelopeSkypeNotifierException(SkypeNotifierErrorCode.AttachError);
+
+            return notifier;
         }
 
         public bool AttachToSkype()
@@ -50,7 +51,7 @@ namespace Antelope.Notifier.Notifiers
 
         public string Name()
         {
-            return "SkypeNotifier";
+            return "Skype Notifier";
         }
 
         public void Notify(BaseSubcriber subcriber, BaseNotifierData data)

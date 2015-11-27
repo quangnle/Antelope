@@ -11,10 +11,8 @@ namespace Antelope.Notifier.Notifiers
         public static GmailNotifier CreateNotifier(string emailAddr, string password, string emailDisplayName)            
         {
             var notifier = new GmailNotifier();
-            if (notifier.Init(emailAddr, password, emailDisplayName))
-                return notifier;
-            else
-                return null;
+            notifier.Init(emailAddr, password, emailDisplayName);
+            return notifier;
         }
 
         public override string SmtpHost()

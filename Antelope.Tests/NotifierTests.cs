@@ -11,6 +11,31 @@ namespace Antelope.Tests
     [TestClass]
     public class NotifierTests
     {
+        private static readonly string ANTELOPE_EMAIL = "aquoz.antelope@gmail.com";
+        private static readonly string ANTELOPE_PASSWORD = "tancong1234";
+        private static readonly string ANTELOPE_DISPLAYNAME = "Aquoz Antelope";
+
+        private static EmailNotifier AntelopeEmailNotifier = 
+            GmailNotifier.CreateNotifier(ANTELOPE_EMAIL, ANTELOPE_PASSWORD, ANTELOPE_DISPLAYNAME);
+
+        private static EmailSubcriber AntelopeEmailSubcriber = new EmailSubcriber()
+        {
+            Email = ANTELOPE_EMAIL,
+            DisplayName = ANTELOPE_DISPLAYNAME
+        };
+
+        private static EmailSubcriber InvalidEmailSubcriber = new EmailSubcriber()
+        {
+            Email = "foo",
+            DisplayName = "foo"
+        };
+
+        private static EmailNotifierData EmailData = new EmailNotifierData()
+        {
+            Title = "title",
+            Content = "content"
+        };
+
         [TestMethod]
         public void Observer_NotifierShouldNotifyToSubcribers()
         {
@@ -65,22 +90,39 @@ namespace Antelope.Tests
         }
 
         [TestMethod]
-        public void Notifier_TestGmailNotifier()
+        public void Notifier_Gmail_Notifier()
         {
-            var notifier = GmailNotifier.CreateNotifier("peterpan.hx@gmail.com", "Since!990", "Nguyen Tan Cong");
+            var notifier = GmailNotifier.CreateNotifier(ANTELOPE_EMAIL, ANTELOPE_PASSWORD, ANTELOPE_DISPLAYNAME);
             var subcriber = new EmailSubcriber()
             {
-                Email = "peterpan.hx@gmail.com",
-                DisplayName = "Nguyen Tan Cong"
+                Email = ANTELOPE_EMAIL,
+                DisplayName = ANTELOPE_DISPLAYNAME
             };
 
-            var data = new EmailNotifierData()
-            {
-                Title = "this is a test",
-                Content = "this is a test body"
-            };
+            notifier.Notify(subcriber, EmailData);
+        }
 
-            notifier.Notify(subcriber, data);
+        [TestMethod]
+        [ExpectedException(typeof(AntelopeInvalidEmailFormat))]
+        public void Notifier_Gmail_InvalidFromEmail()
+        {
+            var notifier = GmailNotifier.CreateNotifier("foo", "foo", "foo");
+            notifier.Notify(AntelopeEmailSubcriber, EmailData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AntelopeInvalidEmailFormat))]
+        public void Notifier_Gmail_InvalidToEmail()
+        {
+            AntelopeEmailNotifier.Notify(InvalidEmailSubcriber, EmailData);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AntelopeSmtpException))]
+        public void Notifier_Gmail_FailedAuthentication()
+        {
+            var notifier = GmailNotifier.CreateNotifier(ANTELOPE_EMAIL, "this is not password", ANTELOPE_DISPLAYNAME);
+            notifier.Notify(AntelopeEmailSubcriber, EmailData);
         }
 
         [TestMethod]

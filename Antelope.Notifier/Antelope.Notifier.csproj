@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="AntelopeObserver.cs" />
     <Compile Include="Exceptions\AntelopeException.cs" />
+    <Compile Include="Exceptions\EmailNotifierException.cs" />
+    <Compile Include="Exceptions\SkypeNotifierException.cs" />
     <Compile Include="Models\EmailSubcriber.cs" />
     <Compile Include="Models\SkypeSubcriber.cs" />
     <Compile Include="Models\SkypeUser.cs" />

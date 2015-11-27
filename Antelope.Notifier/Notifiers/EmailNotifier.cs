@@ -26,7 +26,7 @@ namespace Antelope.Notifier.Notifiers
         public abstract int SmtpPort();
         public abstract int SmtpSslPort();
 
-        protected bool Init(string emailAddr, string password, string emailDisplayName)
+        protected void Init(string emailAddr, string password, string emailDisplayName)
         {
             _emailAddr = emailAddr;
             _emailPassword = password;
@@ -42,13 +42,11 @@ namespace Antelope.Notifier.Notifiers
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(_emailAddr, _emailPassword)
             };
-
-            return true;
         }
 
         public string Name()
         {
-            return string.Format("EmailNotifier {0} <{1}>", _emailDisplayName, _emailAddr);
+            return string.Format("Email Notifier {0} <{1}>", _emailDisplayName, _emailAddr);
         }
 
         public void Notify(BaseSubcriber subcriber, BaseNotifierData data)
@@ -58,7 +56,6 @@ namespace Antelope.Notifier.Notifiers
 
             if(emailData == null || emailSubcriber == null)
                 throw new AntelopeInvalidParameter();
-
 
             try
             {
@@ -73,6 +70,14 @@ namespace Antelope.Notifier.Notifiers
                 {
                     _smtp.Send(message);
                 }
+            }
+            catch(FormatException)
+            {
+                throw new AntelopeInvalidEmailFormat();
+            }
+            catch(SmtpException ex)
+            {
+                throw new AntelopeSmtpException(ex.ToString());
             }
             catch (Exception ex)
             {
