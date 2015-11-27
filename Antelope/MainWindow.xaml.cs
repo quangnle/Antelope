@@ -28,9 +28,6 @@ namespace Antelope
         public MainWindow()
         {
             InitializeComponent();
-
-            //var service = new FakedDaggerService();
-            //Task.Run(() => service.Start()); 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
