@@ -12,19 +12,13 @@ using System.Threading.Tasks;
 
 namespace Antelope.Notifier.Notifiers
 {
-    public class SignalRNotifier: INotifier
+    public abstract class SignalRNotifier: INotifier
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         private static IFormatter _formatter = new WebFormatter();
 
         HubConnection _connection;
         IHubProxy _proxy;
-
-        public static SignalRNotifier CreateNotifier()
-        {
-            var notifier = new SignalRNotifier();
-            return notifier;
-        }
 
         public async void Notify(ISubcriber subcriber, BaseNotifierData data)
         {
@@ -38,7 +32,7 @@ namespace Antelope.Notifier.Notifiers
             {
                 _connection = new HubConnection(signalrSubcriber.Url);
 
-                _proxy = _connection.CreateHubProxy(signalrSubcriber.HubName);
+                _proxy = _connection.CreateHubProxy(HubName());
 
                 _connection.Closed += OnConnectionClosed;
 
@@ -49,13 +43,16 @@ namespace Antelope.Notifier.Notifiers
                 _logger.Info("Can't connect to {0}", signalrSubcriber.Url);
             }
 
-            await _proxy.Invoke(signalrSubcriber.Method, Formatter.Format(signalrData.Content));           
+            await _proxy.Invoke(HubMethod(), Formatter.Format(signalrData.Content));           
         }
 
         private void OnConnectionClosed()
         {
 
         }
+
+        public abstract string HubName();
+        public abstract string HubMethod();
 
         public string Name
         {

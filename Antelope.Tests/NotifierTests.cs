@@ -112,9 +112,9 @@ namespace Antelope.Tests
         [TestMethod]
         public void Notifier_SignalR_TestConnection()
         {
-            var notifier = SignalRNotifier.CreateNotifier();
+            var notifier = AntelopeWebNotifier.CreateNotifier();
             notifier.Notify(
-                new SignalRSubcriber() { Url = "http://localhost:8081/signalr", HubName = "MyHub", Method = "Send" },
+                new SignalRSubcriber() { Url = "http://localhost:8081/signalr" },
                 new MessageNotifierData() { Content = "notify" });
         }
     }
