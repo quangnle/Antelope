@@ -1,5 +1,6 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
+using Antelope.Notifier.Reports;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Antelope.Notifier.Notifiers
     public abstract class EmailNotifier : INotifier
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static IFormatter _formatter = new DefaultFormatter();
 
         private string _emailAddr;
         private string _emailPassword;
@@ -60,7 +62,7 @@ namespace Antelope.Notifier.Notifiers
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = emailData.Title,
-                    Body = emailData.Content
+                    Body = Formatter.Format(emailData.Content)
                 })
                 {
                     _smtp.Send(message);
@@ -83,6 +85,12 @@ namespace Antelope.Notifier.Notifiers
         public string Name
         {
             get { return string.Format("Email Notifier {0} <{1}>", _emailDisplayName, _emailAddr); }
+        }
+
+
+        public IFormatter Formatter
+        {
+            get { return _formatter; }
         }
     }
 }

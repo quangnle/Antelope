@@ -130,7 +130,7 @@
         var chat = $.connection.myHub;
         $(function () {
             chat.client.addMessage = function (message) {
-                toastr.error("Antelope: " + message);
+                toastr.error("ANTELOPE <br />" + message);
             };
             $.connection.hub.start().done(function () {
                 toastr.info("connect to server successful");

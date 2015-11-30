@@ -1,5 +1,6 @@
 ﻿using Antelope.Notifier.Exceptions;
 using Antelope.Notifier.Models;
+using Antelope.Notifier.Reports;
 using NLog;
 using SKYPE4COMLib;
 using System;
@@ -13,6 +14,7 @@ namespace Antelope.Notifier.Notifiers
     public class SkypeNotifier : INotifier
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static IFormatter _formatter = new DefaultFormatter();
 
         private Skype _skypeHandler;
         private List<SkypeUser> _friends;
@@ -62,7 +64,7 @@ namespace Antelope.Notifier.Notifiers
 
             try
             {
-                _skypeHandler.SendMessage(skypeSubcriber.Handle, skypeData.Message);
+                _skypeHandler.SendMessage(skypeSubcriber.Handle, Formatter.Format(skypeData.Message));
             }
             catch (Exception ex)
             {
@@ -73,6 +75,12 @@ namespace Antelope.Notifier.Notifiers
         public string Name
         {
             get { return "Skype Notifier"; }
+        }
+
+
+        public IFormatter Formatter
+        {
+            get { return _formatter; }
         }
     }
 }
