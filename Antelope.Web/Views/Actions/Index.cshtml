@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Antelope.Data.Models.Action>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<Antelope.Data.Models.Action>
 
 @{
     ViewBag.Title = "Index";
@@ -55,3 +57,4 @@
 }
 
 </table>
+@Html.PagedListPager((IPagedList)ViewBag.onePageOfActions, page => Url.Action("Index", new { page }))

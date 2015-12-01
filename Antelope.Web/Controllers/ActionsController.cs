@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Antelope.Data.Models;
+using PagedList;
 
 namespace Antelope.Web.Controllers
 {
@@ -15,9 +16,13 @@ namespace Antelope.Web.Controllers
         private MainModel db = new MainModel();
 
         // GET: Actions
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Actions.OrderByDescending(action => action.ActionTime).ToList());
+            var actions = db.Actions.OrderByDescending(action => action.ActionTime).ToList();
+            var pageNumber = page ?? 1;
+            var onePageOfActions = actions.ToPagedList(pageNumber, 10);
+            ViewBag.onePageOfActions = onePageOfActions;
+            return View(onePageOfActions);
         }
 
         // GET: Actions/Details/5
